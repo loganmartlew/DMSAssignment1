@@ -26,25 +26,9 @@ public final class connectionForDB {
             String pass = "fpn871";
 
             conn = DriverManager.getConnection(db, user, pass);
-            Statement s = conn.createStatement();
 
             createTableUsers();
-
-            insertUser("Coen", "ducksareweird");
-
-            ResultSet rs = s.executeQuery("SELECT * from vyd3379_userInfo");
-            if (rs != null) // if rs == null, then there is no record in ResultSet to show  
-            {
-                while (rs.next()) {
-                    System.out.println("________________________________________");
-                    System.out.println("userName: " + rs.getString(1));
-                    System.out.println("Password: " + rs.getString(2));
-                    System.out.println("________________________________________");
-                }
-            }
-
-            deleteUser("Coen", "ducksareweird");
-            
+            createTableProducts();
             
         } catch (SQLException ex) {
 
