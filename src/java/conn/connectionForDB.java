@@ -164,7 +164,7 @@ public final class connectionForDB {
 
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, name);
-            ps.setString(2, quantity);
+            ps.setString(2, amount);
 
             ps.execute();
 
