@@ -9,7 +9,6 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//jdbc:derby:UserDB_Ebd
 /**
  *
  * @author coen-
@@ -50,7 +49,9 @@ public final class connectionForDB {
             s.execute("CREATE TABLE if not exists vyd3379_userInfo(userName varchar(20), password varchar(20))");
 
         } catch (SQLException ex) {
+            
             System.out.println(ex.getMessage());
+            
         }
     }
 
@@ -108,7 +109,9 @@ public final class connectionForDB {
             s.execute("CREATE TABLE if not exists vyd3379_products(productName varchar(20), description varchar(20), quantity varchar(3), price varchar(4)");
 
         } catch (SQLException ex) {
+            
             System.out.println(ex.getMessage());
+            
         }
     }
 
