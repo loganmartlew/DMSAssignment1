@@ -13,13 +13,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.transaction.HeuristicMixedException;
 import jakarta.transaction.HeuristicRollbackException;
 import jakarta.transaction.NotSupportedException;
 import jakarta.transaction.RollbackException;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.UserTransaction;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,9 +35,11 @@ import java.util.logging.Logger;
 public class Product implements Serializable {
     
     @PersistenceContext
+    @Transient
     private EntityManager em;
     
     @Resource
+    @Transient
     UserTransaction utx;
     
     public Product() {};

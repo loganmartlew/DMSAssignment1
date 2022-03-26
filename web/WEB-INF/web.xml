@@ -24,6 +24,14 @@
         <servlet-name>NewProductServlet</servlet-name>
         <url-pattern>/NewProductServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ViewProductsServlet</servlet-name>
+        <servlet-class>product.ViewProductsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewProductsServlet</servlet-name>
+        <url-pattern>/ViewProductsServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
