@@ -4,13 +4,24 @@
  */
 package product;
 
+import jakarta.annotation.Resource;
 import jakarta.persistence.Column;
 import java.io.Serializable;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Table;
+import jakarta.transaction.HeuristicMixedException;
+import jakarta.transaction.HeuristicRollbackException;
+import jakarta.transaction.NotSupportedException;
+import jakarta.transaction.RollbackException;
+import jakarta.transaction.SystemException;
+import jakarta.transaction.UserTransaction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,6 +30,12 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tkj2567_products")
 public class Product implements Serializable {
+    
+    @PersistenceContext
+    private EntityManager em;
+    
+    @Resource
+    UserTransaction utx;
     
     public Product() {};
 
@@ -45,6 +62,16 @@ public class Product implements Serializable {
         double dollars = price/100;
         String output = String.format("$%.2f", dollars);
         return output;
+    }
+    
+    public void save() {
+        try {
+            utx.begin();
+            em.persist(this);
+            utx.commit();
+        } catch (NotSupportedException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException ex) {
+            Logger.getLogger(NewProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Long getId() {

@@ -53,24 +53,17 @@ public class ValidateProductServlet extends HttpServlet {
             int quantity = this.convertQuantity(qtyString);
             int price = this.convertPrice(priceString);
             
-            // Send to ProductServlet
-            PrintWriter out = response.getWriter();
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>PetServlet Response</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>New Product</h1>");
-            out.println("<p>Name: " + name + "</p>");
-            out.println("<p>Description: " + description + "</p>");
-            out.println("<p>Quantity: " + quantity + "</p>");
-            out.println("<p>Price: " + price + "</p>");
-            out.println("</body>");
-            out.println("</html>");
+            productDto.setQuantity(quantity);
+            productDto.setPrice(price);
+            
+            System.out.println("Sending to NewProductServlet");
+            
+            request.setAttribute("newproduct", productDto);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NewProductServlet");
+            dispatcher.forward(request, response);
         } catch (Exception ex) {
             FormErrorBean<ProductDTO> err = new FormErrorBean<ProductDTO>(ex.getMessage(), productDto);
-            // Send back to form
+            
             request.setAttribute("error", err);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/newproduct.jsp");
             dispatcher.forward(request, response);

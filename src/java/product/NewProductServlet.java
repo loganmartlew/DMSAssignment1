@@ -4,13 +4,24 @@
  */
 package product;
 
+import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.HeuristicMixedException;
+import jakarta.transaction.HeuristicRollbackException;
+import jakarta.transaction.NotSupportedException;
+import jakarta.transaction.RollbackException;
+import jakarta.transaction.SystemException;
+import jakarta.transaction.UserTransaction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,19 +29,35 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ProcessNewProductServlet", urlPatterns = {"/ProcessNewProductServlet"})
 public class NewProductServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        System.out.println("Retrieved at NewProductServlet");
+        
+        ProductDTO productDto = (ProductDTO) request.getAttribute("newproduct");
+        
+        System.out.println("get productDto");
+        
+        Product newProduct = new Product();
+        newProduct.setName(productDto.getName());
+        newProduct.setDescription(productDto.getDescription());
+        newProduct.setQuantity(productDto.getQuantity());
+        newProduct.setPrice(productDto.getPrice());
+        
+        newProduct.save();
+        
+        PrintWriter out = response.getWriter();
+        
+        out.println("<!DOCTYPE html>");
+         out.println("<html>");
+         out.println("<head>");
+         out.println("<title>Pet Entity Servlet Response</title>");
+         out.println("</head>");
+         out.println("<body>");
+        out.println("created");
+        out.println("</body>");
+         out.println("</html>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
