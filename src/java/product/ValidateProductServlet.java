@@ -6,7 +6,7 @@ package product;
  */
 
 import product.ProductDTO;
-import FormError.FormErrorBean;
+import formerror.FormErrorBean;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;

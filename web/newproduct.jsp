@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="FormError.FormErrorBean" %>
+<%@page import="formerror.FormErrorBean" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -16,7 +16,7 @@
     </head>
     <body>
         <h1>List a Product</h1>
-        <jsp:useBean id="error" class="FormError.FormErrorBean" scope="request" />
+        <jsp:useBean id="error" class="formerror.FormErrorBean" scope="request" />
         <form action="/shop/ValidateProductServlet">
             <div>
                 <label for="name">Product Name:</label><br />
