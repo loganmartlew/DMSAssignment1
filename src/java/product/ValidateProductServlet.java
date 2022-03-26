@@ -1,8 +1,11 @@
+package product;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+import product.ProductDTO;
 import FormError.FormErrorBean;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
