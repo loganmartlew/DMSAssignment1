@@ -2,18 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+package Users;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 /**
  *
  * @author coen-
  */
-public class ValidateUserServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,10 +38,10 @@ public class ValidateUserServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ValidateUserServlet</title>");            
+            out.println("<title>Servlet LoginServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ValidateUserServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,7 +59,25 @@ public class ValidateUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        try{
+            
+            UserAccount user = new UserAccount();
+            user.setUserName(request.getParameter("userName"));
+            user.setPassword(request.getParameter("password"));
+            
+            user = UserAccountDAO.login(user);
+            
+            if(user.getIsOnline()){
+                HttpSession session = request.getSession(true);
+                response.sendRedirect("userLogged.jsp");
+            }else{
+                response.sendRedirect("invalidLogin.jsp");
+            }
+            
+        }catch(Throwable ex){
+            System.out.println(ex);
+        }
     }
 
     /**
