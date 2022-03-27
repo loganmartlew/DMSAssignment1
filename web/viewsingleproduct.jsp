@@ -15,7 +15,7 @@
     </head>
     <body>
         <h1>${product.name}</h1>
-        <a href="/shop/viewProductsServlet">Back to products</a>
+        <a href="/shop/ViewProductsServlet">Back to products</a>
         <p>${product.description}</p>
         <p>Stock: ${product.quantity}</p>
         <p>Price: ${product.getFormattedPrice()}</p>
