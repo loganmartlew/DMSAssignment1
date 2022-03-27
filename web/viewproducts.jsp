@@ -17,7 +17,11 @@
         <h1>Products</h1>
         <c:forEach items="${products}" var="product">
             <div style="margin: 2rem; padding: 1em; border: 1px solid black; width: max-content; min-width: 200px;">
-                <h2><c:out value="${product.name}" /></h2>
+                <h2>
+                    <a href="/shop/ViewProductsServlet?id=${product.id}" style="color: inherit;">
+                        <c:out value="${product.name}" />
+                    </a>
+                </h2>
                 <p><c:out value="${product.description}" /></p>
                 <p>Stock: <c:out value="${product.quantity}" /></p>
                 <p>Price: <c:out value="${product.getFormattedPrice()}" /></p>

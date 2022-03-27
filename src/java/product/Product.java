@@ -38,9 +38,9 @@ public class Product implements Serializable {
     @Transient
     private EntityManager em;
     
-    @Resource
     @Transient
-    UserTransaction utx;
+    @Resource
+    private UserTransaction utx;
     
     public Product() {};
 

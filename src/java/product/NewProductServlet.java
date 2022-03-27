@@ -30,14 +30,16 @@ import java.util.logging.Logger;
 @WebServlet(name = "ProcessNewProductServlet", urlPatterns = {"/ProcessNewProductServlet"})
 public class NewProductServlet extends HttpServlet {
     
+    @PersistenceContext
+    private EntityManager em;
+    
+    @Resource
+    private UserTransaction utx;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        System.out.println("Retrieved at NewProductServlet");
-        
         ProductDTO productDto = (ProductDTO) request.getAttribute("newproduct");
-        
-        System.out.println("get productDto");
         
         Product newProduct = new Product();
         newProduct.setName(productDto.getName());
@@ -45,19 +47,16 @@ public class NewProductServlet extends HttpServlet {
         newProduct.setQuantity(productDto.getQuantity());
         newProduct.setPrice(productDto.getPrice());
         
-        newProduct.save();
+//        newProduct.save();
+        try {
+            utx.begin();
+            em.persist(newProduct);
+            utx.commit();
+        } catch (NotSupportedException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException ex) {
+            Logger.getLogger(NewProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-         out.println("<html>");
-         out.println("<head>");
-         out.println("<title>Pet Entity Servlet Response</title>");
-         out.println("</head>");
-         out.println("<body>");
-        out.println("created");
-        out.println("</body>");
-         out.println("</html>");
+        response.sendRedirect("/shop/ViewProductsServlet");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

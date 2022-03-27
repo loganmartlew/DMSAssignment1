@@ -27,4 +27,9 @@ public class ProductService {
         List<Product> products = query.getResultList();
         return products;
     }
+    
+    public Product getProduct(Long id) {
+        Product product = em.find(Product.class, id);
+        return product;
+    }
 }

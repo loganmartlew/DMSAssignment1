@@ -23,12 +23,14 @@ import java.util.List;
  */
 @WebServlet(name = "ViewProducts", urlPatterns = {"/ViewProducts"})
 public class ViewProductsServlet extends HttpServlet {
+
     @PersistenceContext
     EntityManager em;
-    
+
     ProductService productService;
-    
-    public ViewProductsServlet() {};
+
+    public ViewProductsServlet() {
+    }
     
     @PostConstruct
     public void createServices() {
@@ -38,10 +40,36 @@ public class ViewProductsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<Product> products = productService.getAll();
+        String id = request.getParameter("id");
         
+        if (id != null) {
+            viewSingleProduct(request, response);
+            return;
+        }
+
+        viewProducts(request, response);
+    }
+
+    private void viewProducts(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        List<Product> products = productService.getAll();
+
         request.setAttribute("products", products);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/viewproducts.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void viewSingleProduct(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        String stringId = request.getParameter("id");
+        Long id = Long.parseLong(stringId);
+        
+        Product product = productService.getProduct(id);
+        
+        request.setAttribute("product", product);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/viewsingleproduct.jsp");
         dispatcher.forward(request, response);
     }
 

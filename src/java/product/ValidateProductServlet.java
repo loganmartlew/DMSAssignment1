@@ -23,15 +23,6 @@ import java.io.PrintWriter;
 @WebServlet(urlPatterns = {"/ValidateProductServlet"})
 public class ValidateProductServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
@@ -55,8 +46,6 @@ public class ValidateProductServlet extends HttpServlet {
             
             productDto.setQuantity(quantity);
             productDto.setPrice(price);
-            
-            System.out.println("Sending to NewProductServlet");
             
             request.setAttribute("newproduct", productDto);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NewProductServlet");
