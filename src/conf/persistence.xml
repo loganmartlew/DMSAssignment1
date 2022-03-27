@@ -6,7 +6,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/MySQLDmsAssignmentResource</jta-data-source>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://raptor2.aut.ac.nz:3306/testUnrestricted?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://raptor2.aut.ac.nz:3306/dmsAssignments?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="dmsstudent4"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="fpn871"/>
