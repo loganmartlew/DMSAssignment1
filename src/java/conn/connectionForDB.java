@@ -19,29 +19,29 @@ public final class connectionForDB {
 
     public connectionForDB() {
         try {
+
             //required conn info for dmsAssignments DB
             String db = "jdbc:mysql://raptor2.aut.ac.nz:3306/dmsAssignments";
             String user = "dmsstudent4";
             String pass = "fpn871";
-
+            
             conn = DriverManager.getConnection(db, user, pass);
 
             createTableUsers();
             createTableProducts();
-            
+
         } catch (SQLException ex) {
 
             System.out.println(ex.getMessage());
 
         }
     }
-    
+
     /*
     * The below is the code for creating the table for userInfo
     * Also it has insert User(very basic atm)
     * Also it has delete User(also basic)
-    */
-
+     */
     private void createTableUsers() {
         try {
 
@@ -49,9 +49,9 @@ public final class connectionForDB {
             s.execute("CREATE TABLE if not exists vyd3379_userInfo(userName varchar(20), password varchar(20))");
 
         } catch (SQLException ex) {
-            
+
             System.out.println(ex.getMessage());
-            
+
         }
     }
 
@@ -95,23 +95,22 @@ public final class connectionForDB {
 
         }
     }
-    
-        /*
+
+    /*
     * The below is the code for creating the table for Products
     * Also it has insert Product(very basic atm)
     * Also it has delete Product(also basic)
-    */
-    
-        private void createTableProducts() {
+     */
+    private void createTableProducts() {
         try {
 
             Statement s = conn.createStatement();
             s.execute("CREATE TABLE if not exists vyd3379_products(productName varchar(20), description varchar(20), quantity varchar(3), price varchar(4)");
 
         } catch (SQLException ex) {
-            
+
             System.out.println(ex.getMessage());
-            
+
         }
     }
 
