@@ -36,25 +36,15 @@ public class AuthFilter implements Filter {
     
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
-        if (debug) {
-            log("AuthFilter:DoBeforeProcessing");
-        }
     }    
     
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
-        if (debug) {
-            log("AuthFilter:DoAfterProcessing");
-        }
     }
     
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
-        if (debug) {
-            log("AuthFilter:doFilter()");
-        }
         
         doBeforeProcessing(request, response);
         
@@ -65,14 +55,24 @@ public class AuthFilter implements Filter {
             HttpSession session = httpReq.getSession();
             
             
-            if (session.getAttribute("userBean") != null) {
+            if (session.getAttribute("userBean") != null && 
+               ((UserAccount) session.getAttribute("userBean")).getUserName() != null) 
+            {
+                System.out.println("has bean");
                 chain.doFilter(request, response);
             } else {
+                System.out.println("no bean");
                 if ("/shop/loginpage.jsp".equals(httpReq.getRequestURI())) {
+                    System.out.println("is login");
                     chain.doFilter(request, response);
                 } else if ("/shop/createuser.jsp".equals(httpReq.getRequestURI())) {
+                    System.out.println("is create");
+                    chain.doFilter(request, response);
+                } else if ("/shop/LoginServlet".equals(httpReq.getRequestURI())) {
+                    System.out.println("is create");
                     chain.doFilter(request, response);
                 } else {
+                    System.out.println("neither, redirecting");
                     httpResp.sendRedirect("/shop/loginpage.jsp");
                 }
             }

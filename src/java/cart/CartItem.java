@@ -29,7 +29,9 @@ public class CartItem {
     }
     
     public void addQuantity() {
-        this.quantity += 1;
+        if (this.quantity < product.getQuantity()) {
+            this.quantity += 1;
+        }
     }
     
     public void subtractQuantity() {

@@ -22,7 +22,8 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getSession().invalidate();
+//        request.getSession().invalidate();
+        request.getSession().removeAttribute("userBean");
         response.sendRedirect("/shop/loginpage.jsp");
     }
 
