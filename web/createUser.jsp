@@ -14,6 +14,7 @@
         <title>Create new user account</title>
     </head>
     <body>
+        <h1>Create Account</h1>
         <jsp:useBean id="error" class="formerror.FormErrorBean" scope="request" />
         <form action="/shop/ValidateProductServlet">
             <div>

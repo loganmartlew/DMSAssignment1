@@ -11,6 +11,7 @@
         <title>Login Page</title>
     </head>
     <body>
+        <h1>Login</h1>
         <form action="/action_page.php">
             <label for="userName">User Name:</label><br>
             <input type="text" id="userName" name="userName"><br>
