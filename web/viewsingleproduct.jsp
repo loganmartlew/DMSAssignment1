@@ -14,11 +14,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>${product.name}</h1>
-        <a href="/shop/ViewProductsServlet">Back to products</a>
-        <p>${product.description}</p>
-        <p>Stock: ${product.quantity}</p>
-        <p>Price: ${product.getFormattedPrice()}</p>
-        <a href="/shop/CartItemServlet?action=add&payload=${product.id}"><button>Add to cart</button></a>
+        <jsp:include page="header.jsp" />
+        <main>
+            <h1>${product.name}</h1>
+            <a href="/shop/ViewProductsServlet">Back to products</a>
+            <p>${product.description}</p>
+            <p>Stock: ${product.quantity}</p>
+            <p>Price: ${product.getFormattedPrice()}</p>
+            <a href="/shop/CartItemServlet?action=add&payload=${product.id}"><button>Add to cart</button></a>
+        </main>
     </body>
 </html>
