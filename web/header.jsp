@@ -11,7 +11,12 @@
     <body>
         <header>
             <jsp:useBean id="userBean" class="user.UserAccount" scope="session" />
-            <h1>Shop</h1>
+            <nav>
+                <h1>Shop</h1>
+                <a href="/shop/ViewProductsServlet">View Products</a>
+                <a href="/shop/newproduct.jsp">Add Product</a>
+                <a href="/shop/ViewCartServlet">View Cart</a>
+            </nav>
             <div class="info">
                 <c:if test="${userBean == null}">
                     <p>Logged Out</p>
@@ -38,8 +43,20 @@
                 justify-content: space-between;
                 align-items: center;
                 gap: 2em;
-                padding: 0.5em 10%;
+                padding: 1em 10%;
                 background-color: #d4d4d4;
+            }
+            
+            header nav {
+                display: flex;
+                align-items: center;
+                gap: 0.7em;
+            }
+            
+            header nav h1 {
+                font-size: 2rem;
+                margin-right: 1em;
+                margin-block: 0;
             }
             
             header .info {

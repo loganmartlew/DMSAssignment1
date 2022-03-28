@@ -19,7 +19,7 @@
             <h1>Products</h1>
             <a href = "/shop/newproduct.jsp"><button>Add Products</button></a>
             <c:forEach items="${products}" var="product">
-                <div style="margin: 2rem; padding: 1em; border: 1px solid black; width: max-content; min-width: 200px;">
+                <div style="margin-block: 1.5em; padding: 1em; border: 1px solid black; width: max-content; min-width: 200px;">
                     <h2>
                         <a href="/shop/ViewProductsServlet?id=${product.id}" style="color: inherit;">
                             <c:out value="${product.name}" />
