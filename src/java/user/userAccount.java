@@ -5,6 +5,7 @@
 package user;
 
 import jakarta.annotation.Resource;
+import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import jakarta.persistence.Entity;
@@ -28,35 +29,19 @@ import product.NewProductServlet;
  * @author coen
  */
 @Entity
-@Table(name = "vyd3379_userInfo")
+@Table(name = "tkj2567_userInfo")
 public class UserAccount implements Serializable {
-
-    @PersistenceContext
-    @Transient
-    private EntityManager em;
-
-    @Transient
-    @Resource
-    private UserTransaction utx;
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
+    @Column(name="id")
     private Long id;
+    @Column(name="userName" ,unique = true)
     private String userName;
+    @Column(name="password")
     private String password;
-
-    public void save() {
-        try {
-            utx.begin();
-            em.persist(this);
-            utx.commit();
-        } catch (NotSupportedException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException ex) {
-            Logger.getLogger(NewProductServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     public String getUserName() {
         return userName;

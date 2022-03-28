@@ -18,7 +18,7 @@
         <main>
             <h1>Create Account</h1>
             <jsp:useBean id="error" class="formerror.FormErrorBean" scope="request" />
-            <form action="/shop/ValidateProductServlet">
+            <form action="/shop/ValidateUserCreationServlet">
                 <div>
                     <label for="userName">User Name:</label><br />
                     <input type="text" name="userName" id="userName" value="${error.getObject().getUserName()}" />
@@ -27,7 +27,7 @@
                 <br />
                 <div>
                     <label for="password">Password:</label><br />
-                    <input type="password" name="password" id="password" value="${error.getObject().getPassword()}" />\
+                    <input type="password" name="password" id="password" value="${error.getObject().getPassword()}" />
                 </div>
 
                 <br />
@@ -35,7 +35,7 @@
                     <p style="color: red">${error.message}</p>
                 </c:if>
 
-                <button type="submit">Submit Product</button>
+                <button type="submit">Create User</button>
             </form>
         </main>
     </body>

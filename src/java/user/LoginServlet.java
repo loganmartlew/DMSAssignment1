@@ -6,11 +6,13 @@ package user;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -27,7 +29,15 @@ public class LoginServlet extends HttpServlet {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
 
-        em.createQuery("SELECT u from userAccount u where username=? and password = ?");
+        Query q = em.createQuery("SELECT u from UserAccount u where u.userName=:userName and u.password =:password", UserAccount.class);
+        q.setParameter("userName", userName);
+        q.setParameter("password", password);
+        
+        List l = q.getResultList();
+        
+        request.getSession().setAttribute("userBean", l.get(0));
+        
+        response.sendRedirect("/shop/ViewProductsServlet");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

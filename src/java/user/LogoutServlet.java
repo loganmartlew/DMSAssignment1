@@ -4,53 +4,37 @@
  */
 package user;
 
-import formerror.FormErrorBean;
-import jakarta.servlet.RequestDispatcher;
+import jakarta.persistence.Query;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import product.ProductDTO;
+import java.util.List;
 
 /**
- * @author coen
+ *
+ * @author coen-
  */
-public class ValidateUserCreationServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
-
-        UserAccount newUser = new UserAccount();
-        newUser.setUserName(userName);
-        newUser.setPassword(password);
-        
-        try {
-            if (userName == "") {
-                throw new Exception("Name must be provided");
-            }
-
-            if (password == "") {
-                throw new Exception("Password must be provided");
-            }
-
-            request.setAttribute("newUser", newUser);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NewUserAccountServlet");
-            dispatcher.forward(request, response);
-            
-        } catch (Exception ex) {
-            FormErrorBean<UserAccount> err = new FormErrorBean<>(ex.getMessage(), newUser);
-
-            request.setAttribute("error", err);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/createuser.jsp");
-            dispatcher.forward(request, response);
-        }
+        request.getSession().invalidate();
+        response.sendRedirect("/shop/loginpage.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

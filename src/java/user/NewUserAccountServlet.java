@@ -4,12 +4,25 @@
  */
 package user;
 
+import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Transient;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.HeuristicMixedException;
+import jakarta.transaction.HeuristicRollbackException;
+import jakarta.transaction.NotSupportedException;
+import jakarta.transaction.RollbackException;
+import jakarta.transaction.SystemException;
+import jakarta.transaction.UserTransaction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import product.NewProductServlet;
 
 /**
  *
@@ -17,15 +30,27 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class NewUserAccountServlet extends HttpServlet {
 
+    @PersistenceContext
+    private EntityManager em;
+
+    @Resource
+    private UserTransaction utx;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         UserAccount user = (UserAccount) request.getAttribute("newUser");
-        
-        user.save();
-        
+
+        try {
+            utx.begin();
+            em.persist(user);
+            utx.commit();
+        } catch (NotSupportedException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException ex) {
+            Logger.getLogger(NewProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         request.getSession().setAttribute("userBean", user);
-        
+
         response.sendRedirect("/shop/ViewProductsServlet");
     }
 

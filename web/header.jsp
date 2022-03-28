@@ -21,7 +21,7 @@
                 </c:if>
                 <c:if test="${userBean != null}">
                     <p>${userBean.userName}</p>
-                    <a href="#">
+                    <a href="/shop/LogoutServlet">
                         <button>Log Out</button>
                     </a>
                 </c:if>

@@ -34,14 +34,6 @@ import java.util.logging.Logger;
 @Table(name = "tkj2567_products")
 public class Product implements Serializable {
     
-    @PersistenceContext
-    @Transient
-    private EntityManager em;
-    
-    @Transient
-    @Resource
-    private UserTransaction utx;
-    
     public Product() {};
 
     private static final long serialVersionUID = 1L;
@@ -77,16 +69,6 @@ public class Product implements Serializable {
         double dollars = (price * multiplier)/100;
         String output = String.format("$%.2f", dollars);
         return output;
-    }
-    
-    public void save() {
-        try {
-            utx.begin();
-            em.persist(this);
-            utx.commit();
-        } catch (NotSupportedException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException ex) {
-            Logger.getLogger(NewProductServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public Long getId() {
