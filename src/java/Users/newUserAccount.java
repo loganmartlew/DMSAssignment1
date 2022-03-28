@@ -4,9 +4,8 @@
  */
 package Users;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,18 +15,18 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author coen-
  */
-public class LoginServlet extends HttpServlet {
-    
-    @PersistenceContext
-    EntityManager em;
+public class newUserAccount extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
-
-        em.createQuery("SELECT u from userAccount u where username=? and password = ?");
+        
+        userAccount user = (userAccount) request.getAttribute("newUser");
+        
+        user.save();
+        
+        request.getSession().setAttribute("userBean", user);
+        
+        response.sendRedirect("/shop/ViewProductsServlet");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
