@@ -2,74 +2,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package product;
+package user;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
- * @author Logan
+ * @author coen-
  */
-public class ViewProductsServlet extends HttpServlet {
-
-    @PersistenceContext
-    EntityManager em;
-
-    ProductService productService;
-
-    public ViewProductsServlet() {
-    }
-    
-    @PostConstruct
-    public void createServices() {
-        this.productService = new ProductService(em);
-    }
+public class NewUserAccountServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String id = request.getParameter("id");
+        UserAccount user = (UserAccount) request.getAttribute("newUser");
         
-        if (id != null) {
-            viewSingleProduct(request, response);
-            return;
-        }
-
-        viewProducts(request, response);
-    }
-
-    private void viewProducts(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+        user.save();
         
-        List<Product> products = productService.getAll();
-
-        request.setAttribute("products", products);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/viewproducts.jsp");
-        dispatcher.forward(request, response);
-    }
-    
-    private void viewSingleProduct(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+        request.getSession().setAttribute("userBean", user);
         
-        String stringId = request.getParameter("id");
-        Long id = Long.parseLong(stringId);
-        
-        Product product = productService.getProduct(id);
-        
-        request.setAttribute("product", product);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/viewsingleproduct.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("/shop/ViewProductsServlet");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

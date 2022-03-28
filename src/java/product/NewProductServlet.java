@@ -8,7 +8,6 @@ import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -27,7 +26,7 @@ import java.util.logging.Logger;
  *
  * @author Logan
  */
-@WebServlet(name = "ProcessNewProductServlet", urlPatterns = {"/ProcessNewProductServlet"})
+@WebServlet(name = "NewProductServlet", urlPatterns = {"/NewProductServlet"})
 public class NewProductServlet extends HttpServlet {
     
     @PersistenceContext

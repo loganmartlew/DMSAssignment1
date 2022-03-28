@@ -20,7 +20,6 @@ import java.io.PrintWriter;
  *
  * @author Logan
  */
-@WebServlet(urlPatterns = {"/ValidateProductServlet"})
 public class ValidateProductServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

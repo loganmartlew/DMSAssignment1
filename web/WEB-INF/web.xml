@@ -1,33 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="4.0" xmlns="https://jakarta.ee/xml/ns/jakartaee/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
-    <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <jsp-file>/LoginPage.jsp</jsp-file>
-    </servlet>
-    <!--    <servlet-mapping>
+<web-app version="4.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+<!--    <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>-->
-    <servlet>
-        <servlet-name>ValidateProductServlet</servlet-name>
-        <servlet-class>product.ValidateProductServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>NewProductServlet</servlet-name>
-        <servlet-class>product.NewProductServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ViewCartServlet</servlet-name>
-        <servlet-class>cart.ViewCartServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CartItemServlet</servlet-name>
-        <servlet-class>cart.CartItemServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NewProductServlet</servlet-name>
-        <url-pattern>/NewProductServlet</url-pattern>
-    </servlet-mapping>
+    
     <servlet>
         <servlet-name>ViewProductsServlet</servlet-name>
         <servlet-class>product.ViewProductsServlet</servlet-class>
@@ -36,17 +13,76 @@
         <servlet-name>ViewProductsServlet</servlet-name>
         <url-pattern>/ViewProductsServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ValidateProductServlet</servlet-name>
+        <servlet-class>product.ValidateProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ValidateProductServlet</servlet-name>
+        <url-pattern>/ValidateProductServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>NewProductServlet</servlet-name>
+        <servlet-class>product.NewProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewProductServlet</servlet-name>
+        <url-pattern>/NewProductServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ViewCartServlet</servlet-name>
+        <servlet-class>cart.ViewCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCartServlet</servlet-name>
         <url-pattern>/ViewCartServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CartItemServlet</servlet-name>
+        <servlet-class>cart.CartItemServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CartItemServlet</servlet-name>
         <url-pattern>/CartItemServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>user.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ValidateUserCreationServlet</servlet-name>
+        <servlet-class>user.ValidateUserCreationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ValidateUserCreationServlet</servlet-name>
+        <url-pattern>/ValidateUserCreationServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>NewUserAccountServlet</servlet-name>
+        <servlet-class>user.NewUserAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewUserAccountServlet</servlet-name>
+        <url-pattern>/NewUserAccountServlet</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
 </web-app>
