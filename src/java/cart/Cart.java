@@ -42,7 +42,7 @@ public class Cart {
     }
     
     public void checkout() {
-        this.items = new HashMap();
+        items.clear();
     }
     
     public void incrementItem(Long id) {

@@ -63,9 +63,10 @@
                 </tfoot>
             </table>
         </c:if>
+        <br />
             
-        <a href="/shop/ViewProductsServlet">View Products</a>
+        <a href="/shop/ViewProductsServlet">View Products</a><br /><br />
         
-        <a href="#"><button>Checkout</button></a>
+        <a href="/shop/CartItemServlet?action=checkout"><button>Checkout</button></a>
     </body>
 </html>

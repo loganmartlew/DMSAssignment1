@@ -54,6 +54,10 @@ public class CartItemServlet extends HttpServlet {
                 cart.decrementItem(Long.parseLong(payload));
                 break;
             }
+            case "checkout": {
+                cart.checkout();
+                break;
+            }
         }
         
         request.getSession().setAttribute("cart", cart);
