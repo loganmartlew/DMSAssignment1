@@ -4,6 +4,7 @@
  */
 package cart;
 
+import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.UserTransaction;
 
 /**
  *
@@ -21,6 +23,9 @@ public class CartItemServlet extends HttpServlet {
     
     @PersistenceContext
     private EntityManager em;
+    
+    @Resource
+    private UserTransaction utx;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -55,7 +60,7 @@ public class CartItemServlet extends HttpServlet {
                 break;
             }
             case "checkout": {
-                cart.checkout();
+                cart.checkout(utx);
                 break;
             }
         }

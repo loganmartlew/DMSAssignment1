@@ -5,8 +5,19 @@
 package cart;
 
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.HeuristicMixedException;
+import jakarta.transaction.HeuristicRollbackException;
+import jakarta.transaction.NotSupportedException;
+import jakarta.transaction.RollbackException;
+import jakarta.transaction.SystemException;
+import jakarta.transaction.UserTransaction;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import product.NewProductServlet;
+import product.Product;
 
 /**
  *
@@ -41,7 +52,25 @@ public class Cart {
         items.remove(id);
     }
     
-    public void checkout() {
+    public void checkout(UserTransaction utx) {
+        for(Map.Entry<Long, CartItem> entry : items.entrySet()) {
+            CartItem item = entry.getValue();
+            int quantity = item.getQuantity();
+            Product product = item.getProduct();
+            
+            try {
+                utx.begin();
+                product.setQuantity(product.getQuantity() - quantity);
+                Product updatedProduct = em.merge(product);
+                if (product.getQuantity() <= 0) {
+                    em.remove(updatedProduct);
+                }
+                utx.commit();
+            } catch (NotSupportedException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException ex) {
+                Logger.getLogger(NewProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         items.clear();
     }
     
