@@ -69,6 +69,16 @@ public class Product implements Serializable {
         return output;
     }
     
+    public String getFormattedPrice(int multiplier) {
+        if (multiplier < 1) {
+            throw new IllegalArgumentException("Multiplier must be at least 1");
+        }
+        
+        double dollars = (price * multiplier)/100;
+        String output = String.format("$%.2f", dollars);
+        return output;
+    }
+    
     public void save() {
         try {
             utx.begin();
