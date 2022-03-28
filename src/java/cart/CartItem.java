@@ -24,6 +24,10 @@ public class CartItem {
         return this.product;
     }
     
+    public int getQuantity() {
+        return this.quantity;
+    }
+    
     public void addQuantity() {
         this.quantity += 1;
     }

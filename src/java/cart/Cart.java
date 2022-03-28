@@ -6,6 +6,7 @@ package cart;
 
 import jakarta.persistence.EntityManager;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -54,5 +55,18 @@ public class Cart {
         if (items.containsKey(id)) {
             items.get(id).subtractQuantity();
         }
+    }
+    
+    public String getFormattedCartPrice() {
+        int totalCents = 0;
+        
+        for(Map.Entry<Long, CartItem> entry : items.entrySet()) {
+            CartItem item = entry.getValue();
+            totalCents += item.getProduct().getPrice() * item.getQuantity();
+        }
+        
+        double totalDollars = totalCents/100;
+        String output = String.format("$%.2f", totalDollars);
+        return output;
     }
 }

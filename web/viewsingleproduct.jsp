@@ -19,6 +19,6 @@
         <p>${product.description}</p>
         <p>Stock: ${product.quantity}</p>
         <p>Price: ${product.getFormattedPrice()}</p>
-        <a href="#"><button>Add to cart</button></a>
+        <a href="/shop/CartItemServlet?action=add&payload=${product.id}"><button>Add to cart</button></a>
     </body>
 </html>
