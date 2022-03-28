@@ -2,13 +2,13 @@
 <persistence version="2.1" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="DMSAssignment1PU" transaction-type="JTA">
     <class>product.Product</class>
-    <class>Users.userAccount</class>
+    <class>user.UserAccount</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/MySQLDmsAssignmentResource</jta-data-source>
     <properties>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://raptor2.aut.ac.nz:3306/testUnrestricted?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
-      <property name="jakarta.persistence.jdbc.user" value="dmsstudent4"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://raptor2.aut.ac.nz:3306/dmsAssignments?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="jakarta.persistence.jdbc.user" value="dmsstudent3"/>
       <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="jakarta.persistence.jdbc.password" value="fpn871"/>
       <property name="jakarta.persistence.schema-generation.database.action" value="create"/>

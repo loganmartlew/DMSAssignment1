@@ -4,9 +4,11 @@
  */
 package user;
 
+import formerror.FormErrorBean;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -29,13 +31,22 @@ public class LoginServlet extends HttpServlet {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
 
-        Query q = em.createQuery("SELECT u from UserAccount u where u.userName=:userName and u.password =:password", UserAccount.class);
-        q.setParameter("userName", userName);
-        q.setParameter("password", password);
-        
-        List l = q.getResultList();
-        
-        request.getSession().setAttribute("userBean", l.get(0));
+        try {
+            Query q = em.createQuery("SELECT u from UserAccount u where u.userName=:userName and u.password =:password", UserAccount.class);
+            q.setParameter("userName", userName);
+            q.setParameter("password", password);
+
+            List l = q.getResultList();
+
+            request.getSession().setAttribute("userBean", l.get(0));
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            UserAccount user = new UserAccount();
+            FormErrorBean<UserAccount> err = new FormErrorBean<>("Failed to log in", user);
+
+            request.setAttribute("error", err);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginpage.jsp");
+            dispatcher.forward(request, response);
+        }
         
         response.sendRedirect("/shop/ViewProductsServlet");
     }

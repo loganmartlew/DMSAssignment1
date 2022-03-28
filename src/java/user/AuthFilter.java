@@ -17,12 +17,16 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
  * @author Logan
  */
 public class AuthFilter implements Filter {
+    
+    private HashSet<String> exceptedRoutes;
     
     private static final boolean debug = true;
 
@@ -32,7 +36,13 @@ public class AuthFilter implements Filter {
     private FilterConfig filterConfig = null;
     
     public AuthFilter() {
-    }    
+        this.exceptedRoutes = new HashSet<>();
+        this.exceptedRoutes.add("/shop/loginpage.jsp");
+        this.exceptedRoutes.add("/shop/createuser.jsp");
+        this.exceptedRoutes.add("/shop/LoginServlet");
+        this.exceptedRoutes.add("/shop/ValidateUserCreationServlet");
+        this.exceptedRoutes.add("/shop/NewUserAccountServlet");
+    }
     
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
@@ -62,14 +72,7 @@ public class AuthFilter implements Filter {
                 chain.doFilter(request, response);
             } else {
                 System.out.println("no bean");
-                if ("/shop/loginpage.jsp".equals(httpReq.getRequestURI())) {
-                    System.out.println("is login");
-                    chain.doFilter(request, response);
-                } else if ("/shop/createuser.jsp".equals(httpReq.getRequestURI())) {
-                    System.out.println("is create");
-                    chain.doFilter(request, response);
-                } else if ("/shop/LoginServlet".equals(httpReq.getRequestURI())) {
-                    System.out.println("is create");
+                if (exceptedRoutes.contains(httpReq.getRequestURI())) {
                     chain.doFilter(request, response);
                 } else {
                     System.out.println("neither, redirecting");

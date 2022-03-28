@@ -20,6 +20,8 @@ public class ValidateUserCreationServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        System.out.println("Validate servlet");
 
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
